@@ -1,0 +1,53 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "todo app",
+  "main": "index.js",
+  "scripts": {
+    "wp": "webpack",
+    "wps": "webpack-dev-server",
+    "clean": "rimraf dist",
+    "cwp": "npm run clean && npm run wp",
+    "all": "npm run clean && webpack && npm run wps",
+    "buildp": "npm run clean && webpack -p",
+    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
+    "test:watch": "npm run test -- --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^8.2.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "copy-webpack-plugin": "^4.5.1",
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.0.7",
+    "node-sass": "^4.7.2",
+    "postcss-loader": "^2.1.3",
+    "precss": "^3.1.2",
+    "resolve-url-loader": "^2.3.0",
+    "rimraf": "^2.6.2",
+    "sass-loader": "^6.0.7",
+    "url-loader": "^1.0.1",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-flip-move": "^3.0.1",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2"
+  }
+}
