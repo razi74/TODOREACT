@@ -18,7 +18,11 @@ jobs:
 
     steps:
       - checkout
-
+      - run: pwd; ls
+     
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -35,5 +39,24 @@ jobs:
         
       # run tests!
       - run: npm run wp
-
-
+      
+      - setup_remote_docker
+     
+      - run:
+          name: Install Docker client
+          command: |
+            set -x
+            VER="17.03.0-ce"
+            curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
+            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+            mv /tmp/docker/* /usr/bin
+            
+      - run:
+          name: Build Docker image
+          command: docker build -t mlabouardy/movies-store:$CIRCLE_SHA1 .
+         
+      - run:
+          name: Push to DockerHub
+          command: |
+            docker login -u$DOCKERHUB_LOGIN -p$DOCKERHUB_PASSWORD
+            docker push raziaa/todo:$CIRCLE_SHA1
