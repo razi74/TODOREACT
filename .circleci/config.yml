@@ -26,10 +26,10 @@ jobs:
           command: echo ${CIRCLE_BRANCH}
       - run:
           name: Install node
-          command: node install
+          command: apt-get -y install node
       - run:
           name: Install node
-          command: npm install
+          command: apt-get -y install npm
       # Download and cache dependencies
       - restore_cache:
           keys:
