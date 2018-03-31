@@ -7,7 +7,8 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/node:7.10
+      #- image: circleci/node:7.10
+      - image: docker:17.12.1-ce-git
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -23,6 +24,12 @@ jobs:
       - run:
           name: Show current branch
           command: echo ${CIRCLE_BRANCH}
+      - run:
+          name: Install node
+          command: node install
+      - run:
+          name: Install node
+          command: npm install
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -42,20 +49,20 @@ jobs:
       
       - setup_remote_docker
      
-      - run:
-          name: Install Docker client
-          command: |
-            set -x
-            VER="17.12.1-ce"
-            curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
-            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
-            mv /tmp/docker/* /usr/bin
+      #- run:
+      #    name: Install Docker client
+      #    command: |
+      #      set -x
+      #      VER="17.12.1-ce"
+      #      curl -L -o /tmp/docker-$VER.tgz https://download.docker.com/linux/static/stable/x86_64/docker-$VER.tgz
+      #      tar -xz -C /tmp -f /tmp/docker-$VER.tgz
+      #      mv /tmp/docker/* /usr/bin
             
-      - run:
-          name: Build Docker image
-          command: |
-            TAG=0.1.$CIRCLE_BUILD_NUM
-            docker build -t raziaa/todo:$CIRCLE_SHA1 .
+      #- run:
+      #   name: Build Docker image
+      #    command: |
+      #      TAG=0.1.$CIRCLE_BUILD_NUM
+      #      docker build -t raziaa/todo:$CIRCLE_SHA1 .
          
       - run:
           name: Push to DockerHub
